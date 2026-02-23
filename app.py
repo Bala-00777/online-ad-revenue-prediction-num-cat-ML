@@ -3,7 +3,8 @@ import pandas as pd
 import pickle
 
 # Load trained pipeline model
-model = pickle.load(open("model.pkl", "rb"))
+with open("model.pkl", "rb") as f:
+    pipeline = pickle.load(f)
 
 st.title("Online Advertising Revenue Prediction")
 
@@ -50,5 +51,6 @@ input_data = pd.DataFrame([[
 
 # Prediction
 if st.button("Predict Revenue"):
-    prediction = model.predict(input_data)
+    prediction = pipeline.predict(input_data)
+
     st.success(f"Predicted Revenue: ₹{prediction[0]:,.2f}")
